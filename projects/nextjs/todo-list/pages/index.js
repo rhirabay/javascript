@@ -16,12 +16,14 @@ function Home({toDoList}) {
   )
 }
 
-Home.getInitialProps = async (ctx) => {
+export async function getServerSideProps(ctx) {
   const res = await fetch('http://localhost:3000/api/toDoList')
   const json = await res.json()
 
   return {
-    toDoList: json
+    props: {
+      toDoList: json
+    }
   }
 }
 
