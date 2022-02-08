@@ -1,19 +1,26 @@
-import ToDo from "./ToDo";
 import React from "react";
+import { ToDoListApplicationProps } from '../types/types'
+import ToDo from '../components/ToDo'
 
-export default class ToDoList extends React.Component {
-  constructor(props) {
+interface State {
+  toDoList: string[]
+  newTask: string
+}
+
+export default class ToDoList extends React.Component<{}, State> {
+  constructor(props: ToDoListApplicationProps) {
     super(props)
+
     this.state = {
       toDoList: props.toDoList,
-      newTask: ""
+      newTask: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.addTask = this.addTask.bind(this)
   }
 
-  handleChange = (e) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState(state => {
       return {
         ...state,
@@ -44,11 +51,11 @@ export default class ToDoList extends React.Component {
         <input type="text" value={this.state.newTask} onChange={this.handleChange} />
         <pre>{this.state.newTask}</pre>
         <button onClick={this.addTask}>追加</button>
-
         <ul>
-          {this.state.toDoList.map(todo => <ToDo toDo={todo} key={todo} />)}
+          {this.state.toDoList.map(todo => <ToDo key={todo} toDo={todo}/>)}
         </ul>
       </>
     )
   }
 }
+
